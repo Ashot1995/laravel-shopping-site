@@ -14,14 +14,8 @@
             </div>
 
             <div class="form-group">
-                {{Form::label("orders","Orders")}}
-                {{Form::number("orders",1,array("class"=>"form-control"))}}
-            </div>
-
-
-            <div class="form-group">
-                {{Form::label("Parent_id","Parent_id")}}
-                {{Form::select("Parent_id",$parent_id,null,array("class"=>"form-control","placeholder"=>"Select parent id"))}}
+                {{Form::label("parent_id","Parent_id")}}
+                {{Form::select("parent_id",$parent_id,null,array("class"=>"form-control","placeholder"=>"Select parent id"))}}
             </div>
 
             <div class="form-group">

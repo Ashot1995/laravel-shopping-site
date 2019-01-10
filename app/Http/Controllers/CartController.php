@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Cart;
-
+use App\User;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 
 class CartController extends Controller
@@ -28,7 +30,7 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $id)
+    public function create(Request $request,$id)
     {
 
     }
@@ -41,12 +43,17 @@ class CartController extends Controller
      */
     public function store(Request $request, $productId)
     {
-        $userId = Auth::id();
-        $cart = ["userId" => $userId, "productId" => $productId];
 
-        Cart::create($cart);
+        if(Auth::id()) {
+            $userId = Auth::id();
+            $cart = ["user_id" => $userId, "product_id" => $productId];
+            Cart::create($cart);
+            return redirect()->route('cart');
+        }else{
+            return redirect()->route('login');
+        }
 
-        return redirect()->route('home');
+
     }
 
     /**
@@ -57,11 +64,7 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        dd(777);
-        $userId = Auth::id();
-        $cart = Cart::find($userId);
-        $menues = $this->recursive(999);
-        return view("front.cart.index", ["cart" => $cart, "menues" => $menues]);
+
     }
 
     /**
@@ -85,7 +88,18 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $cart = Cart::find($id);
+        $data=["type"=>"1"];
+        $cart->update($data);
+        $user = User::find($cart["user_id"]);
+
+        $productName = Product::find($cart["product_id"]);
+        $name =  $productName['name'];
+
+        Mail::to($user["email"])->send(new SendMailable($name));
+
+        return redirect()->back();
     }
 
     /**
@@ -96,6 +110,9 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Cart::destroy($id);
+        return redirect()->back();
+
     }
 }

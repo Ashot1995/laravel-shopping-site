@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $(".submenu > a").click(function (e) {
         e.preventDefault();
         var $li = $(this).parent("li");
@@ -50,7 +51,7 @@ $(".ul").sortable({
     update: function () {
         var data = [];
         $(".list-group-item").each(function (key, val) {
-            var pId = $(this).parents('li').length > 0 ? $(this).parents('li').attr('id') : 999;
+            var pId = $(this).parents('li').length > 0 ? $(this).parents('li').attr('id') : null;
             var id = $(this).attr("id");
             var dataObj = {
                 order: key,
@@ -84,10 +85,43 @@ $(".ul").sortable({
 //image upload
 
 $('input[type="file"]').change(function(e){
-
     var fileName = e.target.files[0].name;
     $('img').attr('src', 'http://laravel.loc/images/' + fileName);
 });
+
+
+
+//edit
+
+$(".edit").on("click",function () {
+
+    // console.log($("#"+edit_id)[0].innerText)
+    var txt;
+    if (confirm("Are you sure you want to delete this menu!")) {
+        var edit_id = $(this).attr("id");
+
+    $.ajax({
+        data: {"data": edit_id},
+        dataType: "json",
+        type: 'POST',
+        url: 'menu/destroy/'+edit_id,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (data) {
+            if(data){
+            window.location.href = "menu";
+            }
+        }
+    })
+    } else {
+        console.log("You pressed Cancel!");
+    }
+
+})
+
+
+
 
 
 

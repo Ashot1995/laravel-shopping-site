@@ -12,10 +12,15 @@ class MenuController extends Controller
     public function index()
     {
         $allMenu = Menu::all();
-        $menues = $this->recursive(999);
+        $menues = $this->recursive(null);
         $menuView = $this->menuHtml($menues);
 
-        return view("admin.menu.index", ["menuView" => $menuView]);
+        $parent_id = Menu::pluck('name', 'id');
+        $categories = Category::pluck('name', 'id');
+
+
+
+        return view("admin.menu.index", ["a"=>$allMenu,"menuView" => $menuView,"parent_id" => $parent_id, 'categories' => $categories]);
     }
 
     public function recursive($p_id)
@@ -34,12 +39,15 @@ class MenuController extends Controller
         $menuView = "<ul class='ul'>";
         foreach ($menues as $menu) {
 
-            if (!empty($menu['children'])) {
+            if (!empty($menu['children'] && $menu['active'])) {
                 $menuView .= "<li class='list-group-item' id='".$menu['id']."' parent_id='".$menu['parent_id']."'>" . $menu['name'] ;
                 $menuView .= $this->menuHtml($menu['children']);
-                $menuView .= "</li>";
+                $menuView .= "<img src='/images/icons/edit.png' alt='Edit' class='edit'id='".$menu['id']."' height='20px'width='20px' style='float: right ;margin:-20px auto'></li>";
             } else {
-                $menuView .= "<li class='list-group-item' id='".$menu['id']."' parent_id='".$menu['parent_id']."'>" . $menu['name'] . "</li>";
+                if($menu['active']) {
+                    $menuView .= "<li class='list-group-item' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'] . "
+<img src='/images/icons/edit.png' alt='Edit' class='edit' id='".$menu['id']."' height='20px' width='20px' style='float: right ;margin:-20px auto'> </li>";
+                }
             }
         }
         $menuView .= "</ul>";
@@ -56,7 +64,9 @@ class MenuController extends Controller
     {
 
         $parent_id = Menu::pluck('name', 'id');
+
         $categories = Category::pluck('name', 'id');
+
         return view("admin.menu.create", ["parent_id" => $parent_id, 'categories' => $categories]);
 
     }
@@ -69,12 +79,16 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-
         $formInput = $request->all();
+        $this->validate($request, [
+            'name' => 'required',
+            'url' => 'required',
+            'active' => 'required',
+
+        ]);
 
 
         Menu::create($formInput);
-
         return redirect()->route('admin.index');
 
     }
@@ -99,7 +113,6 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**
@@ -111,6 +124,8 @@ class MenuController extends Controller
      */
     public function update(Request $request)
     {
+
+
         $req = $request->all();
         foreach ($req['data'] as $dat) {
             $menu = new Menu();
@@ -131,5 +146,8 @@ class MenuController extends Controller
 
     public function destroy($id)
     {
+
+        Menu::destroy($id);
+        echo json_encode(["data"=>"Successfully saved"]);
     }
-     }
+}

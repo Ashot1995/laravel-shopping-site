@@ -9,4 +9,6 @@
         <strong id="mess"></strong>
     </div>
 
+
+    </div>
 @endsection

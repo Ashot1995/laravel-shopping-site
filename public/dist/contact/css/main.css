@@ -36,13 +36,13 @@ a:hover {
     text-decoration: none;
 }
 
-p {
-    font-family: Poppins-Bold;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #666666;
-    margin: 0;
-}
+/*p {*/
+    /*font-family: Poppins-Bold;*/
+    /*font-size: 14px;*/
+    /*line-height: 1.7;*/
+    /*color: #666666;*/
+    /*margin: 0;*/
+/*}*/
 
 input {
     outline: none;

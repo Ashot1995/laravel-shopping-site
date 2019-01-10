@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('cart/update/{id}', 'cart/Controller@mail');
+
 
 Route::get('/', "FrontController@index")->name('home');
 Route::get('/contact', "FrontController@contact")->name('contact');
@@ -24,6 +26,9 @@ Route::get('/computer/{id?}', "FrontController@product")->name('boots');
 
 
 
+Route::get('cart/create/{id}', "CartController@store")->name("add");
+Route::get('cart/update/{id}', "CartController@update")->name("change");
+Route::post('cart/{id?}', 'CartController@destroy');
 
 
 
@@ -31,14 +36,13 @@ Route::get('/shirt/{id?}', "FrontController@shirt")->name('shirt');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/logout', 'Auth\LoginController@logout')->name('home');
+Route::get('/home', "FrontController@index")->name('home');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
     Route::get('/', function () {
         return view("admin.index");
     })->name("admin.index");
-
 
     Route::resource('product', 'ProductsController');
     Route::post('product/{id?}', 'ProductsController@destroy');
@@ -46,21 +50,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 
     Route::resource('category', 'CategoriesController');
-    Route::post('category/{id?}', 'CategoriesController@destroy');
+    Route::post('category/destroy/{id?}', 'CategoriesController@destroy');
     Route::post('category/{id?}', 'CategoriesController@update');
 
     Route::resource('about', 'AboutController');
     Route::post('about/{id?}', 'AboutController@destroy');
 
 
-    Route::get('/cart/{id?}', "CartController@store")->name('cart');
+    Route::resource('users', 'UserController');
+    Route::post('users/create', 'UserController@create');
+    Route::post('users/create', 'UserController@store')->name("newUser");
 
-    Route::get('/cart/', "CartController@show")->name('cart');
-    Route::post('cart/{id?}', 'CartController@destroy');
-
+    Route::post('users/update/{id}','UserController@update')->name("updatek");
+    Route::post('users/edit/{id?}', 'UserController@edit');
 
 
     Route::resource('menu', 'MenuController');
     Route::post('menu/create', 'MenuController@store')->name('menuCreate');
     Route::post('menu/update', 'MenuController@update')->name('menuUpdate');
+    Route::post('menu/destroy/{id?}', 'MenuController@destroy')->name('menuDelete');
+
+
 });

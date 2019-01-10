@@ -4,7 +4,9 @@
             <div class="col-md-5">
                 <!-- Logo -->
                 <div class="logo">
-                    <h1><a href="{{route('admin.index')}}">Admin</a></h1>
+                    <h1><a href="{{route('admin.index')}}">Admin</a>
+                        <em style="float: right"><a href="{{route('home')}}">Shopping</a></em>
+                    </h1>
                 </div>
             </div>
 

@@ -630,7 +630,12 @@ body {
         margin-right: 0px !important;
     }
 }
-
+td{
+    max-width:300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* Desktop */
 
 @media (max-width: 991px) {

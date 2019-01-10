@@ -4,13 +4,12 @@
 
 @section('content')
 
-
     <div class="row">
         <div class="small-5 small-offset-1 columns">
             <div class="item-wrapper">
-                <div class="img-wrapper">
+                <div class="img">
                     <a href="#">
-                        <img src="{{asset("images/".$products->image)}}"/>
+                        <img src="{{asset("images/".$products->image)}} " id = "big_img"/>
                     </a>
                 </div>
             </div>
@@ -25,7 +24,7 @@
                 <div class="row">
                     <div class="large-12 columns">
 
-                        <a href="{{route('cart',$products->id)}}" class="button  expanded">Add to Cart</a>
+                        <a href="{{route('add',['page'=>$products->id])}}" class="button  expanded">Add to Cart</a>
                     </div>
                 </div>
 

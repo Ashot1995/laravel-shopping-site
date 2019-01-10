@@ -6,7 +6,7 @@
     <div class="row">
 
         <div class="col-md-8 col-md-offset-3">
-            {!! Form::open(['route' =>'product.create','method'=>'post','files'=>true]) !!}
+            {!! Form::open(['route' =>'product.store','method'=>'post','files'=>true]) !!}
 
             <div class="form-group">
                 {{Form::label("name","Name")}}
@@ -24,10 +24,7 @@
                 {{Form::text("price",null,array("class"=>"form-control"))}}
             </div>
 
-            <div class="form-group">
-                {{Form::label("size","Size")}}
-                {{Form::select("size",['small'=>'Left','medium'=>'Right','large'=>'Large'],null,['class'=>'form-control'])}}
-            </div>
+
 
             <div class="form-group">
                 {{Form::label("category_id","Categories")}}

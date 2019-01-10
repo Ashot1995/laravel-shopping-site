@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 
+
 class ProductsController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
+
         $products = Product::all();
         return view("admin.product.index", compact('products'));
     }
@@ -39,10 +41,8 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $formInput = $request->except('image');
-
         $this->validate($request, [
             'name' => 'required',
-            'size' => 'required',
             'description' => 'required',
             'price' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg|'
@@ -50,17 +50,15 @@ class ProductsController extends Controller
         ]);
 
 
-        $image = $request->image;
+        $image = $request->file('image');
 
         if ($image) {
-
             $imageName = $image->getClientOriginalName();
             $image->move('images', $imageName);
             $formInput['image'] = $imageName;
         }
 
         Product::create($formInput);
-
         return redirect()->route('admin.index');
 
     }
@@ -85,8 +83,9 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $products = Product::find($id);
+        $res = Category::with('products')->get()->toArray();
         $categories = Category::pluck('name', 'id');
-        return view("admin.product.edit", ['products' => $products, "categories" => $categories]);
+        return view("admin.product.edit", ['products' => $products, "categories" => $res]);
 
     }
 
@@ -109,15 +108,14 @@ class ProductsController extends Controller
 
         $image = $request->file('image');
 
-        if ($image) {
-
+        if ($request->hasFile('image')) {
             $imageName = $image->getClientOriginalName();
             $image->move('images', $imageName);
-            $formInput['image'] = $imageName;
+            $data['image'] = $imageName;
+
         }
 
         $product = Product::find($id);
-
         $product->fill($data);
         $product->save();
         return redirect()->route('product.index');
@@ -132,7 +130,6 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-
         $delete = new Product();
         $res = $delete->where('id', $id)->delete();
         return redirect()->route('product.index');

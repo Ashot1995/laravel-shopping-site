@@ -13,16 +13,16 @@
     <link rel="stylesheet" href="{{asset("dist/css/app.css")}}"/>
 
     <link rel="stylesheet" type="text/css" href="{{'dist/contact/css/main.css'}}">
-
-
-    {{--slider--}}
-    <link href="{{asset("dist/slider/vendor/bootstrap/css/bootstrap.min.css")}}" rel="stylesheet">
-
-
     <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+    <script src="{{asset("dist/js/app.js")}}"></script>
+    <script src="{{asset("dist/js/vendor/jquery.js")}}"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -36,29 +36,29 @@
         </h4>
     </div>
     <div class="top-bar-right">
-        <ul class="menu">
-            <li>
-                @foreach($menues as $menu)
-                    @if(count($menu->children) != 0)
-                        <div class="dropdown " style="color:white">
-                            <button class="btn dropdown-toggle" type="button"
-                                    data-toggle="dropdown" style="color:white">{{$menu->name}}</button>
-                            {{--<span class="caret" style="color:white"></span></button>--}}
-                            <ul class="dropdown-menu">
-                                @foreach($menu->children as $child)
-                                    <li><a href="{{$child->url."/".$child->category_id}}">{{$child->name}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @else
-                        <a href="{{$menu->url}}">
-                            {{($menu->name)}}
-                        </a>
-                    @endif
-                @endforeach
-            </li>
+        <div class="menu d-flex">
+            <nav id="primary_nav_wrap">
 
-        </ul>
+<?php echo $menuFront;  ?>
+
+                        @if(\Illuminate\Support\Facades\Auth::id())
+                            <a href="/logout">
+                                Logout
+                            </a>
+                        @else
+                            <a href="/login">
+                                Login
+                            </a>
+                        @endif
+
+            </nav>
+
+
+
+
+
+
+        </div>
     </div>
     </div>
 </div>
@@ -80,9 +80,9 @@
         <div class="small-6 medium-4 large-4 columns">
             <h4>Follow Us</h4>
             <ul class="footer-links">
-                <li><a href="https://github.com/Ashot1995">GitHub</a></li>
+                <li><a href="https://github.com/">GitHub</a></li>
                 <li><a href="https://fb.com">Facebook</a></li>
-                <li><a href="https://twitter.com/ashotgharakesh1">Twitter</a></li>
+                <li><a href="https://twitter.com/">Twitter</a></li>
             </ul>
         </div>
     </div>
@@ -100,16 +100,12 @@
 
 </script>
 
-<script src="{{asset("dist/js/vendor/jquery.js")}}"></script>
-<script src="{{asset("dist/js/app.js")}}"></script>
 
 {{--contact--}}
 <script src="{{asset("https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes")}}"></script>
 <script src="{{asset("dist/contact/js/map-custom.js")}}"></script>
 <script src="{{asset("dist/contact/js/main.js")}}"></script>
-{{--slider--}}
-<script src="{{asset("dist/slider/vendor/jquery/jquery.min.js")}}"></script>
-<script src="{{asset("dist/slider/vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+
 
 
 </body>

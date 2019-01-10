@@ -1,0 +1,1 @@
+<h1>You successfully buy {{$productName}}</h1>

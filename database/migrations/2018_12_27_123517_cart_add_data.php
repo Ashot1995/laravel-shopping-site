@@ -15,8 +15,9 @@ class CartAddData extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('userId');
-            $table->string('productId');
+            $table->string('user_id');
+            $table->string('product_id');
+            $table->integer('type')->default("0");
 
 
             $table->timestamps();
