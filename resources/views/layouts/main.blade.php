@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('dist/css/foundation.css')}}"/>
     <link rel="stylesheet" href="{{asset("dist/css/app.css")}}"/>
 
-    <link rel="stylesheet" type="text/css" href="{{'dist/contact/css/main.css'}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('dist/contact/css/main.css')}}">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
     <script src="{{asset("dist/js/app.js")}}"></script>
     <script src="{{asset("dist/js/vendor/jquery.js")}}"></script>
@@ -31,6 +31,7 @@
     <div style="color:white" class="top-bar-left">
         <h4 class="brand-title">
             <a href="{{route('home')}}">
+
                 Shopping
             </a>
         </h4>

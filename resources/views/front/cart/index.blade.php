@@ -4,6 +4,7 @@
 
 
     @if(\Illuminate\Support\Facades\Auth::id())
+
         <table class="table table-sm">
             <thead>
             <tr>
@@ -24,6 +25,7 @@
             @foreach($cart as $c)
 
                 <tr>
+
                     @if($c["type"]=="0")
                     <th scope="row">{{$c["product"]["id"]}}</th>
                     <td>{{$c["product"]["name"]}}</td>
@@ -37,6 +39,7 @@
                         {{ Form::submit('Delete',array("class"=>'btn btn-danger'))}}
                         {!! Form::close() !!}
                     </td>
+
 
                     @endif
 

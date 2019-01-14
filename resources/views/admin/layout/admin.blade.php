@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
+    <script src="http://demo.itsolutionstuff.com/plugin/croppie.js"></script>
+    <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/croppie.css">
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body>
@@ -38,6 +42,7 @@
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
 {{--<script src="https://code.jquery.com/jquery.js"></script>--}}
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{asset("js/imageCroppie.js")}}"></script>
 
 <script src="{{asset("js/scriptMenu.js")}}"></script>
 

@@ -92,6 +92,7 @@ class FrontController extends Controller
     {
 
         $products = Product::all()->where("category_id", $id);
+
         $menues = $this->recursive(null);
         $menuFront = $this->menuFront($menues);
 

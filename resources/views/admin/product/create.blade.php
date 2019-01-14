@@ -6,46 +6,52 @@
     <div class="row">
 
         <div class="col-md-8 col-md-offset-3">
-            {!! Form::open(['route' =>'product.store','method'=>'post','files'=>true]) !!}
 
-            <div class="form-group">
-                {{Form::label("name","Name")}}
-                {{Form::text("name",null,array("class"=>"form-control"))}}
-            </div>
-
-
-            <div class="form-group">
-                {{Form::label("description","Description")}}
-                {{Form::text("description",null,array("class"=>"form-control"))}}
-            </div>
-
-            <div class="form-group">
-                {{Form::label("price","Price")}}
-                {{Form::text("price",null,array("class"=>"form-control"))}}
-            </div>
+            <form id="form">
+                <span id="res"></span>
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="name" id="name" required>
+                </div>
 
 
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="text" class="form-control" placeholder="Description" name="description"
+                           id="description" required>
+                </div>
 
-            <div class="form-group">
-                {{Form::label("category_id","Categories")}}
-                {{Form::select("category_id", $categories,null,['class'=>'form-control','placeholder'=>'Select category'])}}
-            </div>
-
-            <div class="form-group">
-                {{Form::label("image","Image")}}
-                {{Form::file("image",array("class"=>"form-control"))}}
-            </div>
-
-            {{Form::submit("Create",array("class"=>'btn btn-success'))}}
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="number" class="form-control" placeholder="Price" name="price" id="price" required>
+                </div>
 
 
+                <div class="form-group">
+                    <label for="">Category</label>
+                    {{Form::select("category_id", $categories,null,['class'=>'form-control','placeholder'=>'Select category',"id"=>"category_id","required"])}}
+                </div>
 
 
+                <div class="row">
+                    <div class="col-md-8 text-center">
+                        <div id="upload-demo" style="background:#e1e1e1;width:350px;height: 300px"></div>
+                    </div>
+                    <div class="col-md-2" >
+                        <div id="upload-demo-i" style="margin-top: 30px;width:300px;height:300px"></div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="file" id="upload" style="margin-top:100%" required>
+                    <br/>
+                    <a class="btn btn-info upload-result disabled">Crop</a>
+                </div>
 
+                <input id="create111"  class="btn btn-success float-right" value="create">
+            </form>
 
 
         </div>
-
 
 
     </div>

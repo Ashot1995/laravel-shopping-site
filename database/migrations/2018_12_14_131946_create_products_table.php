@@ -18,8 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->text('price');
-            $table->string('image')->nullable();
+            $table->string('image');
+            $table->integer('order')->nullable();
             $table->integer('category_id');
+            $table->integer('type')->default("1");
             $table->timestamps();
         });
     }

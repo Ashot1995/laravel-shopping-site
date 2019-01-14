@@ -1,12 +1,14 @@
 @extends("layouts.main")
 
 @section("content")
-
+    {!! Form::open(['route'=>'sendMail']) !!}
     <div class="container-contact100">
-        <div class="contact100-map" id="google_map" data-map-x="40.722047" data-map-y="-73.986422" data-pin="images/icons/map-marker.png" data-scrollwhell="0" data-draggable="1"></div>
+        <div class="contact100-map" id="google_map" data-map-x="40.722047" data-map-y="-73.986422"
+             data-pin="images/icons/map-marker.png" data-scrollwhell="0" data-draggable="1"></div>
 
         <div class="wrap-contact100">
-            <div class="contact100-form-title" style="background-image: url({{asset("dist/contact/images/bg-01.jpg")}});">
+            <div class="contact100-form-title"
+                 style="background-image: url({{asset("dist/contact/images/bg-01.jpg")}});">
 				<span class="contact100-form-title-1">
 					Contact Us
 				</span>
@@ -23,7 +25,7 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <span class="label-input100">Email:</span>
                     <input class="input100" type="text" name="email" placeholder="Enter email addess">
                     <span class="focus-input100"></span>
@@ -35,25 +37,27 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate = "Message is required">
+                <div class="wrap-input100 validate-input" data-validate="Message is required">
                     <span class="label-input100">Message:</span>
-                    <textarea class="input100" name="message" placeholder="Your Comment..."></textarea>
+                    <input class="input100" type="text" name="message" placeholder="Your Comment...">
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="container-contact100-form-btn">
-                    <button class="contact100-form-btn">
+
+                        <button class="contact100-form-btn" id="contact">
 						<span>
 							Submit
 							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
 						</span>
-                    </button>
+                        </button>
                 </div>
             </form>
         </div>
     </div>
 
 
+    {!! Form::close() !!}
 
     <div id="dropDownSelect1"></div>
 

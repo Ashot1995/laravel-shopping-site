@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('cart/update/{id}', 'cart/Controller@mail');
+Route::post('contact/contactPost', 'ContactController@contactPost')->name("sendMail");
 
 
 Route::get('/', "FrontController@index")->name('home');
@@ -19,17 +19,17 @@ Route::get('/contact', "FrontController@contact")->name('contact');
 Route::get('/about', "FrontController@about")->name('about');
 Route::get('/cart', 'FrontController@cart')->name("cart");
 Route::get('/product', "FrontController@index")->name('product');
-Route::get('/watches/{id?}', "FrontController@product")->name('watches');
+
+Route::get('/watches/{id?}', "FrontController@product")->name('catalog');
 Route::get('/shirts/{id?}', "FrontController@product")->name('shirts');
 Route::get('/boots/{id?}', "FrontController@product")->name('boots');
 Route::get('/computer/{id?}', "FrontController@product")->name('boots');
-
+Route::get('/phone/{id?}', "FrontController@product")->name('phone');
 
 
 Route::get('cart/create/{id}', "CartController@store")->name("add");
 Route::get('cart/update/{id}', "CartController@update")->name("change");
 Route::post('cart/{id?}', 'CartController@destroy');
-
 
 
 Route::get('/shirt/{id?}', "FrontController@shirt")->name('shirt');
@@ -45,8 +45,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
     })->name("admin.index");
 
     Route::resource('product', 'ProductsController');
-    Route::post('product/{id?}', 'ProductsController@destroy');
-    Route::post('product/create','ProductsController@store');
+    Route::delete('/product/{id}', 'ProductsController@destroy')->name("productDelete");
+    Route::post('/product/create', 'ProductsController@store');
+    Route::post('product/update', 'ProductsController@updateSortable');
 
 
     Route::resource('category', 'CategoriesController');
@@ -61,7 +62,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
     Route::post('users/create', 'UserController@create');
     Route::post('users/create', 'UserController@store')->name("newUser");
 
-    Route::post('users/update/{id}','UserController@update')->name("updatek");
+    Route::post('users/update/{id}', 'UserController@update')->name("updatek");
     Route::post('users/edit/{id?}', 'UserController@edit');
 
 

@@ -53,6 +53,7 @@
         <div class="row">
 
             @foreach($products as $product)
+                @if($product["type"]===1)
 
                     <div class="item-wrapper col-md-3">
                         <div class="img-wrapper">
@@ -79,7 +80,7 @@
                             {{$product['description']}}
                         </p>
                     </div>
-
+@endif
 
 
         @endforeach

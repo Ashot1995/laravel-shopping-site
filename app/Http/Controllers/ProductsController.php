@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +18,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-
-        $products = Product::all();
+        $products = Product::orderBy('order')->get();
         return view("admin.product.index", compact('products'));
     }
 
@@ -40,26 +41,25 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $formInput = $request->except('image');
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'image' => 'image|mimes:png,jpg,jpeg|'
+        $data = $request["image"];
+        list($type, $data) = explode(';', $data);
+        list(, $data) = explode(',', $data);
+        $data = base64_decode($data);
+        $image_name = time() . '.png';
+        $path = public_path() . "/images/product" . $image_name;
+        $path1 = "product" . $image_name;
 
-        ]);
+        $formInput['name'] = $request["name"];
+        $formInput['description'] = $request["description"];
+        $formInput['price'] = $request["price"];
+        $formInput['category_id'] = $request["category_id"];
+        $formInput['image'] = $path1;
 
-
-        $image = $request->file('image');
-
-        if ($image) {
-            $imageName = $image->getClientOriginalName();
-            $image->move('images', $imageName);
-            $formInput['image'] = $imageName;
+        $res = Product::create($formInput);
+        if ($res) {
+            file_put_contents($path, $data);
+            return json_encode(["data" => "ok"]);
         }
-
-        Product::create($formInput);
-        return redirect()->route('admin.index');
 
     }
 
@@ -98,6 +98,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $data = $request->except("_token");
 
         $this->validate($request, [
@@ -119,6 +120,18 @@ class ProductsController extends Controller
         $product->fill($data);
         $product->save();
         return redirect()->route('product.index');
+
+    }
+
+    public function updateSortable(Request $req)
+    {
+        $product = new Product();
+        foreach ($req["data"] as $dat) {
+
+            $data = ['order' => $dat['order'], 'id' => $dat['id']];
+            $res = $product->where('id', $dat['id'])->update($data);
+
+        }
 
     }
 

@@ -255,7 +255,7 @@ iframe {
 [ Input ]*/
 
 .wrap-input100 {
-    width: 100%;
+    width: 95%;
     position: relative;
     border-bottom: 1px solid #b2b2b2;
     margin-bottom: 26px;
@@ -317,7 +317,11 @@ iframe {
 
 /*---------------------------------------------*/
 input.input100 {
+
     height: 45px;
+    width: 94%;
+    padding: 11px;
+    margin: 16px;
 }
 
 textarea.input100 {

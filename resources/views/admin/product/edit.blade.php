@@ -22,6 +22,14 @@
                     <textarea class="form-control" name="description">{{$products->description}}</textarea>
                 </div>
                 <div class="form-group">
+                    <label for="exampleInputEmail1">Type</label>
+                    <select name="type" class="form-control">
+                        <option value="1">Active</option>
+                        <option value="0">Passive</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="exampleInputEmail1">Category</label>
                     <select name="category" class="form-control">
                         @foreach($categories as $category)
@@ -37,7 +45,7 @@
 
                 <div class="form-group">
                     <img src="{{asset('images/'.$products->image)}}"
-                         style="height:150px;width: 150px">
+                         style="height:110px;width: 150px">
                     <input type="file" name="image" class="form-control">
                 </div>
                 <input type="submit" class="btn btn-primary" value="Edit">

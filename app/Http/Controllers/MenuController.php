@@ -126,14 +126,16 @@ class MenuController extends Controller
     {
 
 
-        $req = $request->all();
-        foreach ($req['data'] as $dat) {
+        $req = $request["data"];
+        foreach ($req as $dat) {
             $menu = new Menu();
             $data = ['orders' => $dat['order'], 'parent_id' => $dat['pId']];
             $res = $menu->where('id', $dat['id'])->update($data);
 
         }
-            echo json_encode(["data"=>"Successfully saved"]);
+        if($res==1) {
+            echo json_encode(["data" => "Successfully saved"]);
+        }
 
     }
 

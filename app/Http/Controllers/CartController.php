@@ -96,7 +96,6 @@ class CartController extends Controller
 
         $productName = Product::find($cart["product_id"]);
         $name =  $productName['name'];
-
         Mail::to($user["email"])->send(new SendMailable($name));
 
         return redirect()->back();

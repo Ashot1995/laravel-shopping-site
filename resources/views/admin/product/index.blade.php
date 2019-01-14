@@ -17,18 +17,17 @@
         </tr>
 
         </thead>
-        <tbody>
+        <tbody id="productBody">
         @foreach($products as $product)
-
-            <tr>
+            <tr id="{{$product->id}}">
                 <th scope="row">{{$product->id}}</th>
                 <td>{{$product->name}}</td>
                 <td>{{$product->price}}</td>
                 <td>{{$product->description}}</td>
-                <td ><img src="{{asset("images/".$product->image)}}" style="width: 60px;height: 50px" alt=""></td>
-                <td><a class="btn btn-primary"href="{{action('ProductsController@edit',$product->id)}}">Edit</a></td>
+                <td><img src="{{asset("images/".$product->image)}}" style="width: 60px;height: 50px" alt=""></td>
+                <td><a class="btn btn-primary" href="{{action('ProductsController@edit',$product->id)}}">Edit</a></td>
 
-                <td>{{ Form::open(array('action'=>array('ProductsController@destroy',$product->id))) }}
+                <td>{{ Form::open(['url'=>route("productDelete",$product->id),"method"=>"DELETE"]) }}
                     {{ Form::submit('Delete',array("class"=>'btn btn-danger'))}}
                     {!!Form::close() !!}
                 </td>

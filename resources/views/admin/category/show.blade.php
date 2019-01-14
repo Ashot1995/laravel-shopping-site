@@ -22,7 +22,7 @@
                     <td>{{$product->name}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->description}}</td>
-                    <td>{{$product->image}}</td>
+                    <td><img src="{{asset("images/".$product->image)}}" alt="image" height="50px" width="60px"></td>
                 </tr>
             @empty
                 <tr><td>No data</td></tr>
