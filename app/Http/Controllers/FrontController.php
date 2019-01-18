@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Logo;
 use App\Product;
 use App\Cart;
 use Illuminate\Http\Request;
@@ -15,12 +16,9 @@ class FrontController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('order')->get();
         $productImg = Product::orderBy('id', 'desc')->take(4)->get();
-        $menues = $this->recursive(null);
-        $menuFront = $this->menuFront($menues);
-
-        return view("home", ['menuFront' => $menuFront, 'products' => $products, "productImg" => $productImg]);
+        return view("home", ['products' => $products, "productImg" => $productImg]);
     }
 
     public function recursive($p_id)
@@ -32,74 +30,49 @@ class FrontController extends Controller
         return $menues;
     }
 
-    public function menuFront($menues)
-    {
-        $menuView = "<ul style='z-index: 999'>";
-        foreach ($menues as $menu) {
-
-            if (count($menu['children']) && $menu['active']) {
-                $menuView .= "<li class='current-menu-item'><a href='" . $menu['url'] . '/' . $menu['category_id'] . "'>" . $menu['name'];
-                $menuView .= $this->menuFront($menu['children']);
-                $menuView .= "</a></li>";
-            } else {
-                if ($menu['active']) {
-                    $menuView .= "<li><a href='" . $menu['url'] . '/' . $menu['category_id'] . "'>" . $menu['name'] . "</li>";
-                }
-            }
-        }
-        $menuView .= "</ul>";
-        return $menuView;
-    }
 
     public function contact()
     {
-        $menues = $this->recursive(null);
-        $menuFront = $this->menuFront($menues);
-        return view('front.contact.contact', ["menuFront" => $menuFront]);
+        return view('front.contact.contact');
     }
 
     public function about()
     {
 
         $about = About::orderBy('id', "desc")->take(1)->get();
-        $menues = $this->recursive(null);
-        $menuFront = $this->menuFront($menues);
-        return view('admin.about.about', ["menuFront" => $menuFront, "data" => $about]);
+        return view('admin.about.about', [ "data" => $about]);
     }
 
     public function cart()
     {
         $userId = Auth::id();
         $res = Cart::with('product')->get()->where("user_id", $userId)->toArray();
-        $menues = $this->recursive(null);
-        $menuFront = $this->menuFront($menues);
-        return view('front.cart.index', ["menuFront" => $menuFront, "cart" => $res]);
+        return view('front.cart.index', [ "cart" => $res]);
     }
 
 
-    public function shirt($id)
+    public function details($id)
     {
 
         $products = Product::find($id);
-        $menues = $this->recursive(null);
-        $menuFront = $this->menuFront($menues);
-
-        return view("front.shirt", ['products' => $products, "menuFront" => $menuFront]);
+        return view("front.details", ['products' => $products]);
     }
 
 
-    public function product($id)
+    public function product($name , $id)
     {
 
         $products = Product::all()->where("category_id", $id);
-
-        $menues = $this->recursive(null);
-        $menuFront = $this->menuFront($menues);
-
-        return view('front.catalogs.product', ["menuFront" => $menuFront, "products" => $products]);
+        return view('front.catalogs.product', [ "products" => $products]);
 
     }
+    public function allProduct()
+    {
+        $products = Product::orderBy('order')->get();
+        $productImg = Product::orderBy('id', 'desc')->take(4)->get();
+        return view("front.allProducts.allProducts", ['products' => $products, "productImg" => $productImg]);
 
+    }
 
 
 }

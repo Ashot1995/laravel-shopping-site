@@ -4,6 +4,17 @@
         <ul class="nav">
             <!-- Main menu -->
 
+            <li class="submenu">
+                <a href="#">
+                    <i class="glyphicon glyphicon-list"></i> Site name
+                    <span class="caret pull-right"></span>
+                </a>
+                <!-- Sub menu -->
+                <ul>
+                    <li><a href="{{route('logos.index')}}">Site name</a></li>
+
+                </ul>
+            </li>
 
 
             <li class="submenu">
@@ -20,7 +31,10 @@
             </li>
 
 
-                        <li class="submenu">
+
+
+
+            <li class="submenu">
                 <a href="#">
                     <i class="glyphicon glyphicon-list"></i> Products
                     <span class="caret pull-right"></span>

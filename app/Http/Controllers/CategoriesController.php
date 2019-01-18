@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -15,7 +16,6 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories=Category::all();
-
        return view('admin.category.index', compact(['categories']));
     }
 
@@ -103,8 +103,19 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
 
-        $delete = new Category();
-        $res = $delete->where('id', $id)->delete();
-        return redirect()->route('category.index');
+        $res= Product::where("category_id",$id)->get();
+
+        if(count($res)){
+            echo '<script language="javascript">';
+            echo 'alert("There are products in this directory, please delete these products first.");';
+            echo 'location.href="/admin/category"';
+            echo '</script>';
+
+        }else{
+            Category::destroy($id);
+            return redirect()->route('category.index');
+        }
+
+
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
     <h3>Categories</h3>
 
-    <table class="table" style="">
+    <table class="table"  style="table-layout:fixed">
         <thead class="thead-dark">
 
         <tr>
@@ -25,7 +25,7 @@
                 <td><a class="btn btn-primary"href="{{route('category.show',$category->id)}}">Show</a></td>
                 <td><a class="btn btn-primary"href="{{route('category.edit',$category->id)}}">Edit</a></td>
 
-                <td>{{ Form::open(array('action'=>array('CategoriesController@destroy',$category->id))) }}
+                <td>{{ Form::open(['url'=>route("categoryDelete",$category->id),"method"=>"DELETE"]) }}
                     {{ Form::submit('Delete',array("class"=>'btn btn-danger'))}}
                     {!! Form::close() !!}
                 </td>

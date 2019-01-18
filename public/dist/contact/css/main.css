@@ -60,7 +60,11 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-textarea {
+.textarea{
+   resize: none;
+    padding: 5px;
+    margin: 17px;
+    width: 94%;
     outline: none;
     border: none;
 }

@@ -7,7 +7,7 @@
         <h1>Edit About</h1>
         <div class="row">
 
-            <form action="{{action("AboutController@update",$about->id)}}" method="post">
+            <form action="{{action("AboutController@update",$about->id)}}"  enctype='multipart/form-data' method="post">
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="PATCH"/>
                 <div class="form-group">

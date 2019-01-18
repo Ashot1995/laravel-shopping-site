@@ -3,7 +3,7 @@
 @section('content')
     <h3>Categories</h3>
 
-    <table class="table" style="">
+    <table class="table table-responsive-md "  style="table-layout:fixed">
         <thead class="thead-dark">
 
         <tr>

@@ -5,7 +5,7 @@
                 <!-- Logo -->
                 <div class="logo">
                     <h1><a href="{{route('admin.index')}}">Admin</a>
-                        <em style="float: right"><a href="{{route('home')}}">Shopping</a></em>
+                        <em style="float: right"><a href="{{route('home')}}">Home</a></em>
                     </h1>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 @section('content')
     <h3>Products</h3>
 
-    <table class="table" style="">
+    <table class="table"  style="table-layout:fixed">
         <thead class="thead-dark">
 
         <tr>

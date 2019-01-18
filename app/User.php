@@ -19,7 +19,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type'
+        'type',
+        'provider_id',
+
     ];
 
     public function cart()
@@ -35,6 +37,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+
     ];
 
 

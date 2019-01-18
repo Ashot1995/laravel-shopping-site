@@ -35,19 +35,23 @@
 
                 <div class="row">
                     <div class="col-md-8 text-center">
-                        <div id="upload-demo" style="background:#e1e1e1;width:350px;height: 300px"></div>
+                        <div id="upload-demo"></div>
                     </div>
-                    <div class="col-md-2" >
+                    <div class="col-md-1 d-flex">
+                        <span>Height:<em  id="height"></em></span><br>
+                        <span>Width:<em id="width"></em></span>
+                    </div>
+                    <div class="col-md-2">
                         <div id="upload-demo-i" style="margin-top: 30px;width:300px;height:300px"></div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <input type="file" id="upload" style="margin-top:100%" required>
+                    <input type="file" id="upload" accept=".jpg,.png,.jpeg"  required>
                     <br/>
                     <a class="btn btn-info upload-result disabled">Crop</a>
                 </div>
 
-                <input id="create111"  class="btn btn-success float-right" value="create">
+                <input id="create" type="button" class="btn btn-success float-right" value="Create">
             </form>
 
 

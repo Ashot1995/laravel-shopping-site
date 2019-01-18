@@ -9,7 +9,7 @@
         <div class="d-flex flex-row">
             <div>
                 @foreach($data as $about)
-                    <img src="{{asset('images/'.$about->image)}}" alt="image site" style="float: left;padding: 3%;width: 65%;
+                    <img src="{{asset('images/about/'.$about->image)}}" alt="image site" style="float: left;padding: 3%;width: 65%;
 height: 500px">
 
                     <h1> {{$about->title}}</h1>

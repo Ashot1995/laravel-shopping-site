@@ -50,24 +50,26 @@ class AboutController extends Controller
 
         $data = $request->except("_token");
 
-//        $this->validate($request,[
-//            'title'=>'required',
-//            'description'=>'required',
-//        ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+        ]);
 
         $image = $request->file('image');
 
-        if ($image) {
-
+        if ($request->hasFile('image')) {
             $imageName = $image->getClientOriginalName();
-            $image->move('images/about', $imageName);
-            $formInput['image'] = $imageName;
-        }
-        $about=About::find($id);
+            $path = "images/about/";
+            $image->move($path, $imageName);
+            $data['image'] = $imageName;
 
-        $about->fill($data);
-        $about->save();
-        return redirect()->route('about.index');
+        }
+
+        $product = About::find($id);
+        $product->fill($data);
+        $product->save();
+        return redirect()->route('admin.index');
 
     }
 

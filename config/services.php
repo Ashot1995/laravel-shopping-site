@@ -39,5 +39,11 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'google' => [
+        'client_id' => ('331204359626-l1m6ta9j7fdce5lam9ensdrbbkiqt32r.apps.googleusercontent.com'),
+        'client_secret' => ('i4LoYNrMHSHfmVY-JC_gUPxq'),
+        'redirect' => ('http://127.0.0.1:8000/login/google/callback')
+
+    ],
 
 ];

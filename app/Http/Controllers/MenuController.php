@@ -14,13 +14,11 @@ class MenuController extends Controller
         $allMenu = Menu::all();
         $menues = $this->recursive(null);
         $menuView = $this->menuHtml($menues);
-
         $parent_id = Menu::pluck('name', 'id');
         $categories = Category::pluck('name', 'id');
 
-
-
-        return view("admin.menu.index", ["a"=>$allMenu,"menuView" => $menuView,"parent_id" => $parent_id, 'categories' => $categories]);
+        return view("admin.menu.index",
+            ["a" => $allMenu, "menuView" => $menuView, "parent_id" => $parent_id, 'categories' => $categories]);
     }
 
     public function recursive($p_id)
@@ -33,20 +31,24 @@ class MenuController extends Controller
     }
 
 
-
     public function menuHtml($menues)
     {
         $menuView = "<ul class='ul'>";
         foreach ($menues as $menu) {
 
             if (!empty($menu['children'] && $menu['active'])) {
-                $menuView .= "<li class='list-group-item' id='".$menu['id']."' parent_id='".$menu['parent_id']."'>" . $menu['name'] ;
+                $menuView .= "<li class='list-group-item' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'];
                 $menuView .= $this->menuHtml($menu['children']);
-                $menuView .= "<img src='/images/icons/edit.png' alt='Edit' class='edit'id='".$menu['id']."' height='20px'width='20px' style='float: right ;margin:-20px auto'></li>";
+                $menuView .= "<img src='/images/icons/edit.png' alt='Edit' class='edit'id='" . $menu['id'] . "' height='20px'width='20px' style='float: right ;margin:-20px '>
+<img src='/images/icons/delete.png' alt='delete' class='delete'id='" . $menu['id'] . "' height='20px'width='20px' style='float: right ;margin:-20px auto'>
+</li>";
             } else {
-                if($menu['active']) {
+                if ($menu['active']) {
                     $menuView .= "<li class='list-group-item' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'] . "
-<img src='/images/icons/edit.png' alt='Edit' class='edit' id='".$menu['id']."' height='20px' width='20px' style='float: right ;margin:-20px auto'> </li>";
+<img src='/images/icons/edit.png' alt='Edit' class='edit' id='" . $menu['id'] . "' height='20px' width='20px' style='float: right ;margin:-20px '> 
+<img src='/images/icons/delete.png' alt='delete' class='delete' id='" . $menu['id'] . "' height='20px' width='20px' style='float: right ;margin:-20px auto'>
+</li>";
+
                 }
             }
         }
@@ -64,9 +66,7 @@ class MenuController extends Controller
     {
 
         $parent_id = Menu::pluck('name', 'id');
-
         $categories = Category::pluck('name', 'id');
-
         return view("admin.menu.create", ["parent_id" => $parent_id, 'categories' => $categories]);
 
     }
@@ -82,11 +82,11 @@ class MenuController extends Controller
         $formInput = $request->all();
         $this->validate($request, [
             'name' => 'required',
-            'url' => 'required',
             'active' => 'required',
 
         ]);
 
+        $formInput["url"]="/".mb_strtolower($request->name);
 
         Menu::create($formInput);
         return redirect()->route('admin.index');
@@ -113,6 +113,32 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        $res = Menu::find($id);
+        $parent_id = Menu::pluck('name', 'id');
+        $categories = Category::pluck('name', 'id');
+        return view("admin.menu.edit", ["res" => $res, "parent_id" => $parent_id, 'categories' => $categories]);
+    }
+
+    public function updateMenu(Request $req, $id)
+    {
+        $menu = new Menu();
+        $this->validate($req, [
+            'name' => 'required',
+
+        ]);
+        $data = [
+            'name' => $req["name"],
+            "parent_id" => $req["parent_id"],
+            "url" => $req["url"],
+            "category_id" => $req["category_id"],
+            "active" => $req["active"]
+        ];
+        $res = $menu->where('id', $id)->update($data);
+        if ($res) {
+            return redirect()->route('menu.index');
+
+        }
+
     }
 
     /**
@@ -133,7 +159,7 @@ class MenuController extends Controller
             $res = $menu->where('id', $dat['id'])->update($data);
 
         }
-        if($res==1) {
+        if ($res == 1) {
             echo json_encode(["data" => "Successfully saved"]);
         }
 
@@ -150,6 +176,6 @@ class MenuController extends Controller
     {
 
         Menu::destroy($id);
-        echo json_encode(["data"=>"Successfully saved"]);
+        echo json_encode(["data" => "Successfully saved"]);
     }
 }

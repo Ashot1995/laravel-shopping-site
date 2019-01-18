@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
 {
@@ -45,6 +45,7 @@ class ProductsController extends Controller
         list($type, $data) = explode(';', $data);
         list(, $data) = explode(',', $data);
         $data = base64_decode($data);
+
         $image_name = time() . '.png';
         $path = public_path() . "/images/product" . $image_name;
         $path1 = "product" . $image_name;
@@ -143,8 +144,13 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $delete = new Product();
-        $res = $delete->where('id', $id)->delete();
+        $delete =Product::where("id",$id)->get();
+$path="images/".$delete[0]['image'];
+
+       if(file_exists($path)){
+           File::delete($path);
+       }
+       Product::destroy($id);
         return redirect()->route('product.index');
     }
 }

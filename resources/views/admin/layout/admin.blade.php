@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="http://demo.itsolutionstuff.com/plugin/jquery.js"></script>
     <script src="http://demo.itsolutionstuff.com/plugin/croppie.js"></script>
     <link rel="stylesheet" href="http://demo.itsolutionstuff.com/plugin/croppie.css">

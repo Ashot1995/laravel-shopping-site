@@ -18,10 +18,10 @@
                 {{Form::select("parent_id",$parent_id,null,array("class"=>"form-control","placeholder"=>"Select parent id"))}}
             </div>
 
-            <div class="form-group">
-                {{Form::label("url","url")}}
-                {{Form::text("url",null,array("class"=>"form-control"))}}
-            </div>
+            {{--<div class="form-group">--}}
+                {{--{{Form::label("url","url")}}--}}
+                {{--{{Form::text("url",null,array("class"=>"form-control"))}}--}}
+            {{--</div>--}}
             <div class="form-group">
                 {{Form::label("category_id","Categories")}}
                 {{Form::select("category_id", $categories,null,['class'=>'form-control','placeholder'=>'Select category'])}}

@@ -1,10 +1,8 @@
 @extends("layouts.main")
 
-@section("title","products")
+@section("title","Products")
 
 @section("content")
-
-
 
 @if(count($products))
             <div class="container">
@@ -19,13 +17,13 @@
                                     Add to Cart
                                 </a>
 
-                                <a href="{{route('shirt',$product['id'])}}">
+                                <a href="{{route('details',$product['id'])}}">
                                     <img style="margin: 0 auto" src="{{url("images",$product['image'])}}"/>
                                 </a>
 
                             </div>
 
-                            <a href="{{route('shirt',$product['id'])}}">
+                            <a href="{{route('details',$product['id'])}}">
                                 <h4 style="text-align: center" class="desc">
                                     {{$product['name']}}
                                 </h4>

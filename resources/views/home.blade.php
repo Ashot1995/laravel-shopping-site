@@ -50,7 +50,7 @@
 
 
     <div class="container">
-        <div class="row">
+        <div class="row" id="front">
 
             @foreach($products as $product)
                 @if($product["type"]===1)
@@ -62,13 +62,13 @@
                                 Add to Cart
                             </a>
 
-                            <a href="{{route('shirt',$product['id'])}}">
+                            <a href="{{route('details',$product['id'])}}">
                                 <img style="margin: 0 auto" src="{{url("images",$product['image'])}}"/>
                             </a>
 
                         </div>
 
-                        <a href="{{route('shirt',$product['id'])}}">
+                        <a href="{{route('details',$product['id'])}}">
                             <h4 style="text-align: center" class="desc">
                                 {{$product['name']}}
                             </h4>

@@ -28,39 +28,45 @@
 <body>
 <div class="top-bar ">
     <div class="container">
-    <div style="color:white" class="top-bar-left">
-        <h4 class="brand-title">
-            <a href="{{route('home')}}">
+        <div style="color:white" class="top-bar-left">
+            <h4 class="brand-title">
+                <a href="{{route('home')}}">
+                    @foreach($logos as $logo)
+                        <img src="{{asset("images/logos/".$logo->image)}}" style="height: 50px;width: 50px" alt="">
+                        {{$logo->name}}
+                    @endforeach
 
-                Shopping
-            </a>
-        </h4>
-    </div>
-    <div class="top-bar-right">
-        <div class="menu d-flex">
-            <nav id="primary_nav_wrap">
+                </a>
 
-<?php echo $menuFront;  ?>
-
-                        @if(\Illuminate\Support\Facades\Auth::id())
-                            <a href="/logout">
-                                Logout
-                            </a>
-                        @else
-                            <a href="/login">
-                                Login
-                            </a>
-                        @endif
-
-            </nav>
-
-
-
-
-
+            </h4>
 
         </div>
-    </div>
+        <div class="top-bar-right">
+            <div class="menu d-flex">
+                <nav id="primary_nav_wrap">
+
+                    <?php echo $menuFront;?>
+
+                    @if(Auth::id())
+                        <a href="/logout">
+                            Logout
+                        </a>
+                    @else
+                        <a href="/login">
+                            Login
+                        </a>
+                    @endif
+                    @if(Auth::id()==1)
+                        <a href="/admin">
+                            Admin
+                        </a>
+                    @else
+
+                    @endif
+
+                </nav>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -68,7 +74,7 @@
 
 
 <footer class="footer">
-    <div class="row full-width"style="margin: 0;padding: 0">
+    <div class="row full-width" style="margin: 0;padding: 0">
         <div class="small-12 medium-4 large-4 columns">
             <i class="fi-laptop"></i>
             <p>Coded by Ashot Gharakeshishyan for Esterox Gyumre</p>
@@ -106,7 +112,6 @@
 <script src="{{asset("https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes")}}"></script>
 <script src="{{asset("dist/contact/js/map-custom.js")}}"></script>
 <script src="{{asset("dist/contact/js/main.js")}}"></script>
-
 
 
 </body>
