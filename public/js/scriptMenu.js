@@ -23,35 +23,41 @@ $(document).ready(function () {
 
 var newParentId;
 var id;
-$("li").mousedown(function (event) {
+$(".list-group-item").change(function (event) {
     id = event.target.id;
-
     var elementParentId = $('.list-group-item#' + id).parent().children("li").parents("li").attr("i");
     newParentId = $(this).attr("parent_id", elementParentId);
 });
 
+$(".menus").sortableLists({
 
-$(".ul, .list-group-item").sortable({
+    placeholderClass: 'placeholderClass',
+    placeholderCss: {'background-color': 'yellow'},
+    ignoreClass: 'clickable',
+    insertZone: 50,
+    insertZonePlus: true,
+    scroll: 50,
 
-    connectWith: ".list-group-item,.ul",
-    items: '.list-group-item',
-    // revert: true,
-    scrollSensitivity: 10,
-    flexibleHours: true,
-    companyCulture: 100,
-    helper: "clone",
-    accept: "li",
-    // forceHelperSize: true,
-    // forcePlaceholderSize: true,
-    tolerance: 'pointer',
-    cursorAt: {
-        top: -30
+    isAllowed: function (currEl, hint, target) {
+        if (hint.parents('li').first().data('module') === 'c' && currEl.data('module') !== 'c') {
+            hint.css('background-color', '#ff9999');
+            return false;
+        }
+        else {
+            hint.css('background-color', '#99ff99');
+            return true;
+        }
+    },
+    onDragStart: function (e, el) {
+
+        $(".edit").css("margin", "0px auto")
+        $(".edit").css("z-index", "9999")
+        $(".delete").css("margin", "0px ")
+        $(".delete").css("z-index", "9999 ")
     },
 
-    // axis: "y",
 
-
-    update: function () {
+    complete: function () {
         var data = [];
         $(".list-group-item").each(function (key, val) {
             var pId = $(this).parents('li').length > 0 ? $(this).parents('li').attr('id') : null;
@@ -74,7 +80,7 @@ $(".ul, .list-group-item").sortable({
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $(".alert").show(1000)
                 $(".alert").hide(2000);
                 $("#mess").text(data["data"])
@@ -136,11 +142,10 @@ $(function () {
     // $(".cr-viewport ,.cr-slider-wrap,.upload-result ").css("display","none");
 
 
-
     $(".cr-viewport").resizable({
         maxHeight: 350,
         minHeight: 100,
-        maxWidth:400,
+        maxWidth: 400,
         minWidth: 100,
 
     });

@@ -13,7 +13,7 @@ class MenuController extends Controller
     {
         $allMenu = Menu::all();
         $menues = $this->recursive(null);
-        $menuView = $this->menuHtml($menues);
+        $menuView = $this->menuHtml($menues, true);
         $parent_id = Menu::pluck('name', 'id');
         $categories = Category::pluck('name', 'id');
 
@@ -31,27 +31,31 @@ class MenuController extends Controller
     }
 
 
-    public function menuHtml($menues)
+    public function menuHtml($menues, $first = false)
     {
-        $menuView = "<ul class='ul'>";
-        foreach ($menues as $menu) {
+        $ulClass = $first ? 'menus' : '';
 
+        $menuView = '<ul class="' . $ulClass . '">';
+
+        foreach ($menues as $menu) {
             if (!empty($menu['children'] && $menu['active'])) {
-                $menuView .= "<li class='list-group-item' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'];
+
+                $menuView .= "<li class='list-group-item text-center' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'];
                 $menuView .= $this->menuHtml($menu['children']);
-                $menuView .= "<img src='/images/icons/edit.png' alt='Edit' class='edit'id='" . $menu['id'] . "' height='20px'width='20px' style='float: right ;margin:-20px '>
-<img src='/images/icons/delete.png' alt='delete' class='delete'id='" . $menu['id'] . "' height='20px'width='20px' style='float: right ;margin:-20px auto'>
+                $menuView .= "<img src='/images/icons/delete.png' alt='delete' class='delete clickable' id='" . $menu['id'] . "' height='20px'width='20px' style='float: right ;margin-top:-20px;'>
+<img src='/images/icons/edit.png' alt='Edit' class='edit clickable'id='" . $menu['id'] . "' height='20px'width='20px' style='float: right;margin:-20px '>
 </li>";
             } else {
                 if ($menu['active']) {
-                    $menuView .= "<li class='list-group-item' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'] . "
-<img src='/images/icons/edit.png' alt='Edit' class='edit' id='" . $menu['id'] . "' height='20px' width='20px' style='float: right ;margin:-20px '> 
-<img src='/images/icons/delete.png' alt='delete' class='delete' id='" . $menu['id'] . "' height='20px' width='20px' style='float: right ;margin:-20px auto'>
+                    $menuView .= "<li class='list-group-item text-center' id='" . $menu['id'] . "' parent_id='" . $menu['parent_id'] . "'>" . $menu['name'] . "
+<img src='/images/icons/delete.png' alt='delete' class='delete' id='" . $menu['id'] . "' height='20px' width='20px' style='float: right ;margin:-20px auto;z-index:99999'>
+<img src='/images/icons/edit.png' alt='Edit' class='edit' id='" . $menu['id'] . "' height='20px' width='20px' style='float: right ;'> 
 </li>";
 
                 }
             }
         }
+
         $menuView .= "</ul>";
         return $menuView;
     }
@@ -86,7 +90,7 @@ class MenuController extends Controller
 
         ]);
 
-        $formInput["url"]="/".mb_strtolower($request->name);
+        $formInput["url"] = "/" . mb_strtolower($request->name);
 
         Menu::create($formInput);
         return redirect()->route('admin.index');
